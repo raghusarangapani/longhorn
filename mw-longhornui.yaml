@@ -1,0 +1,9 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata: 
+  name: prefixstrip-longhornui
+spec: 
+  stripPrefix:
+    prefixes:
+      - /longhorn-ui
+    forceSlash: false

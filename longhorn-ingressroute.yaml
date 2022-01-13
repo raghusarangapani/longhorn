@@ -1,0 +1,17 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: longhorn-ingressroute
+spec:
+  routes:
+    - match: Host(`yourhost.com`) && (Path(`/longhorn-ui/`) || Path(`/longhorn-ui`) || PathPrefix(`/longhorn-ui`) || PathPrefix(`/longhorn-ui/`))
+      kind: Rule
+      services:
+        - name: longhorn-frontend
+          port: 80
+          namespace: longhorn-system
+          passHostHeader: true
+      middlewares:
+        - name: basicauth
+        - name: longhorn-ui-addtrailingslash
+        - name: prefixstrip-longhornui

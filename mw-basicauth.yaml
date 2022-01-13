@@ -1,0 +1,16 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: basicauth
+spec:
+  basicAuth:
+    secret: authsecret
+---
+apiVersion: v1
+data:
+  auth: htpasswd-base64
+kind: Secret
+metadata:
+  name: authsecret
+  namespace: longhorn-system
+type: Opaque
